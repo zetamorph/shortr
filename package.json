@@ -1,0 +1,19 @@
+{
+  "name": "shortr",
+  "version": "1.0.0",
+  "description": "A basic URL shortening microservice",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zetamorph/shortr.git"
+  },
+  "author": "Johannes Loewe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zetamorph/shortr/issues"
+  },
+  "homepage": "https://github.com/zetamorph/shortr#readme"
+}
