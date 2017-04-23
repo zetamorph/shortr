@@ -23,7 +23,7 @@ function getURL (req,res) {
 
 function postURL (req,res) {
   if(!req.body.url) {
-    res.status(400).end();
+    res.status(400).json({"error": "Bad request"});
   }
   URL.create({"url": req.body.url}, (err, created) => {
     const encodedURL = ShortURL.encode(created.id);
@@ -35,7 +35,7 @@ function postURL (req,res) {
         if(err) {
           res.status(500).json({"error" : "Internal Server Error"});
         } else {
-          res.status(201).json({"shortURL" : updated.encodedURL});
+          res.status(201).json({"shortURL" : updated.encodedURL}).end();
         }
     });
   });

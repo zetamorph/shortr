@@ -1,8 +1,14 @@
 doctype html
 html
   head
+    link(rel="stylesheet" type="text/css" href="css/style.css")
   body 
-    h1 Shortr
-    form(method="POST")
-      input(type="text")
-      button(type="submit") Make it shortr
+    .main-container
+      .heading-container
+        h1 Shortr
+        h2 Shorten your URLs!
+      #view-container
+
+    script(src="js/index.js")
+    script 
+      | FormView.init();
