@@ -1,7 +1,7 @@
-let   mongoose = require("mongoose"),
-      Schema = mongoose.Schema,
-      autoIncrement = require("mongoose-auto-increment"),
-      db = require("../db");
+const   mongoose = require("mongoose"),
+        Schema = mongoose.Schema,
+        autoIncrement = require("mongoose-auto-increment"),
+        db = require("../db");
 
 autoIncrement.initialize(db);
 

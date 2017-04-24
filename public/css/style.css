@@ -33,6 +33,11 @@ a {
   text-align: center;
 }
 
+#flash {
+  opacity: 0;
+  color: white;
+}
+
 #view-container {
   height: 40%;
   display: flex;

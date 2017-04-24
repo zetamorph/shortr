@@ -1,11 +1,10 @@
-const URL = require("../models/url"),
-      ShortURL = require("../ShortURL"),
-      server = require("../server").server;
+const   URL = require("../models/url"),
+        ShortURL = require("../ShortURL");
 
 function getURL (req,res) {
   let encodedURL = req.params.encodedURL;
   if(!encodedURL) {
-    res.status(400).json({"error":"Not a valid shortened URL"});
+    res.status(400).json({"error" : "Not a valid shortened URL"});
   }
   const decodedURL = ShortURL.decode(encodedURL);
   URL.findOne({"_id" : decodedURL}, (err, result) => {

@@ -1,11 +1,11 @@
-let   express = require("express"),
-      server = express(),
-      morgan = require("morgan"),
-      path = require("path"),
-      bodyParser = require("body-parser"),
-      config = require("config"),
-      url = require("./routes/url"),
-      db = require("./db");
+const   express = require("express"),
+        server = express(),
+        morgan = require("morgan"),
+        path = require("path"),
+        bodyParser = require("body-parser"),
+        config = require("config"),
+        urlRoutes = require("./routes/url"),
+        db = require("./db");
 
 server.use(express.static(path.join(__dirname, "/public")));
 server.set("view engine", "pug");
@@ -17,15 +17,16 @@ server.get("/", (req,res) => {
 });
 
 server.route("/new")
-  .post(url.postURL);
+  .post(urlRoutes.postURL);
 
-server.route("/:encodedURL").get(url.getURL);
+server.route("/:encodedURL")
+  .get(urlRoutes.getURL);
 
 server.listen(9000, () => {
-  console.log("Shortr running on port 8080");
+  console.log("Shortr running on port 9000");
 });
 
-module.exports = server
+module.exports = server;
 
 
 

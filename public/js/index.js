@@ -1,13 +1,21 @@
 var View = {
 
   root: document.querySelector("#view-container"),
-
+  flash: {
+    el: document.querySelector("#flash"),
+    show() {
+      this.el.style.opacity = 1;
+    },
+    setMessage(message) {
+      this.el.innerHTML = message;
+    }
+  },
   destroy() {
     while(this.root.firstChild) {
       this.root.removeChild(this.root.firstChild);
     }
   },
-}
+};
 
 var FormView = Object.create(View);
 
@@ -25,7 +33,8 @@ FormView.init = function() {
       this.postURL();
       this.destroy();
     } else {
-      //display FLash
+      this.flash.setMessage("Please enter a URL first.");
+      this.flash.show();
     }
   });
 
