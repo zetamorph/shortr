@@ -21,7 +21,7 @@ server.route("/new")
 
 server.route("/:encodedURL").get(url.getURL);
 
-server.listen(8080, () => {
+server.listen(9000, () => {
   console.log("Shortr running on port 8080");
 });
 
