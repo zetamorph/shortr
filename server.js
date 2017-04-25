@@ -8,6 +8,7 @@ const   express = require("express"),
         db = require("./db");
 
 server.use(express.static(path.join(__dirname, "/public")));
+
 server.set("view engine", "pug");
 server.use(bodyParser.json());
 server.use(morgan("combined"));

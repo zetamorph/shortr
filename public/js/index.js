@@ -27,8 +27,9 @@ FormView.init = function() {
   var buttonNode = document.createElement("button");
   var buttonTextNode = document.createTextNode("Make it shortr");
   buttonNode.appendChild(buttonTextNode);
+  buttonNode.setAttribute("type", "submit");
 
-  buttonNode.addEventListener("click", (event) => {
+  buttonNode.addEventListener("click", () => {
     if(this.root.querySelector("input").value) {
       this.postURL();
       this.destroy();
@@ -38,8 +39,13 @@ FormView.init = function() {
     }
   });
 
+
   this.root.appendChild(buttonNode);
 };
+
+FormView.submit = function() {
+  
+}
 
 FormView.postURL = function() {
   var xhr = new XMLHttpRequest();
