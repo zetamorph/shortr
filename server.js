@@ -3,7 +3,6 @@ const   express = require("express"),
         morgan = require("morgan"),
         path = require("path"),
         bodyParser = require("body-parser"),
-        config = require("config"),
         urlRoutes = require("./routes/url"),
         db = require("./db");
 

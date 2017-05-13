@@ -40,7 +40,8 @@ class App extends Component {
 
     return (
       <Container>
-        <Header>Shortr</Header>
+        <Header>
+          <h1>Shortr</h1></Header>
         {content}
       </Container>
     );
