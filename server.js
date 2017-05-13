@@ -7,11 +7,20 @@ const   express = require("express"),
         urlRoutes = require("./routes/url"),
         db = require("./db");
 
-server.use(express.static(path.join(__dirname, "/public")));
+var allowCrossDomain = function(req, res, next) {
 
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+  next();
+}
+
+server.use(express.static(path.join(__dirname, "/public")));
 server.set("view engine", "pug");
-server.use(bodyParser.json());
 server.use(morgan("combined"));
+server.use(allowCrossDomain);
+server.use(bodyParser.json());
 
 server.get("/", (req,res) => {
   res.render("index");
@@ -28,6 +37,3 @@ server.listen(9000, () => {
 });
 
 module.exports = server;
-
-
-

@@ -21,23 +21,26 @@ function getURL (req,res) {
 }
 
 function postURL (req,res) {
+  console.log(req.headers);
   if(!req.body.url) {
     res.status(400).json({"error": "Bad request"});
   }
-  URL.create({"url": req.body.url}, (err, created) => {
-    const encodedURL = ShortURL.encode(created.id);
-    URL.findOneAndUpdate(
-      {_id: created.id}, 
-      {$set: {encodedURL : encodedURL}}, 
-      {new: true},
-      (err, updated) => {
-        if(err) {
-          res.status(500).json({"error" : "Internal Server Error"});
-        } else {
-          res.status(201).json({"shortURL" : updated.encodedURL}).end();
-        }
+  else {
+    URL.create({"url": req.body.url}, (err, created) => {
+      const encodedURL = ShortURL.encode(created.id);
+      URL.findOneAndUpdate(
+        {_id: created.id}, 
+        {$set: {encodedURL : encodedURL}}, 
+        {new: true},
+        (err, updated) => {
+          if(err) {
+            res.status(500).json({"error" : "Internal Server Error"});
+          } else {
+            res.status(201).json({"shortURL" : updated.encodedURL}).end();
+          }
+      });
     });
-  });
+  }
 }
 
 module.exports = {getURL, postURL};
