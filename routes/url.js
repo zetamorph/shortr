@@ -1,5 +1,6 @@
 const   URL = require("../models/url"),
-        ShortURL = require("../ShortURL");
+        ShortURL = require("../ShortURL"),
+        md5 = require("md5");
 
 function getURL (req,res) {
   let encodedURL = req.params.encodedURL;
@@ -26,6 +27,11 @@ function postURL (req,res) {
     res.status(400).json({"error": "Bad request"});
   }
   else {
+
+    //Make an API call to screenshotlayer.com and send the image link with the response
+
+    const secret = 
+
     URL.create({"url": req.body.url}, (err, created) => {
       const encodedURL = ShortURL.encode(created.id);
       URL.findOneAndUpdate(
