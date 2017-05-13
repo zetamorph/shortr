@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import Nav from './Nav';
 import URLForm from './URLForm';
 import URLView from './URLView';
-import {Container, Header} from 'semantic-ui-react';
+import {Container, Grid} from 'semantic-ui-react';
 import axios from 'axios';
 import './App.css';
 
@@ -11,7 +12,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      URL: "",
+      urlCount: 1,
+      url: "",
       shortURL: "",
       screenshotURL: ""
     };
@@ -22,11 +24,10 @@ class App extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const urlData = event.target.url.value;
-    this.setState({URL: urlData});
+    this.setState({url: urlData});
     let self = this;
-    axios.post("http://localhost:9000/new", {url: urlData}).then((response) => {
-      self.setState({shortURL: response.data.shortURL, screenshotURL: response.data.screenshotURL}, function afterURLReceived() {
-      });
+    axios.post("/new", {url: urlData}).then((response) => {
+      self.setState({shortURL: response.data.shortURL, screenshotURL: response.data.screenshotURL});
     });
   }
 
@@ -35,14 +36,23 @@ class App extends Component {
     if(!this.state.shortURL) {
       content = <URLForm onSubmit={this.handleSubmit} />;
     } else {
-      content = <URLView shortURL={this.state.shortURL} url={this.state.URL} screenshotURL={this.state.screenshotURL} />;
+      content = <URLView shortURL={this.state.shortURL} url={this.state.url} screenshotURL={this.state.screenshotURL} />;
     }
 
     return (
-      <Container>
-        <Header>
-          <h1>Shortr</h1></Header>
-        {content}
+      <Container fluid>
+        <Nav/>
+        <Grid padded>
+          <Grid.Row columns={3}>
+            <Grid.Column>
+            </Grid.Column>
+            <Grid.Column inverted>
+              {content}
+            </Grid.Column>
+            <Grid.Column>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </Container>
     );
   }
