@@ -1,6 +1,8 @@
 const   URL = require("../models/url"),
         ShortURL = require("../ShortURL"),
-        md5 = require("md5");
+        md5 = require("md5"),
+        screenshotlayer = require("./../config/default.json").screenshotlayer,
+        axios = require("axios");
 
 function getURL (req,res) {
   let encodedURL = req.params.encodedURL;
@@ -22,7 +24,6 @@ function getURL (req,res) {
 }
 
 function postURL (req,res) {
-  console.log(req.headers);
   if(!req.body.url) {
     res.status(400).json({"error": "Bad request"});
   }
@@ -30,7 +31,12 @@ function postURL (req,res) {
 
     //Make an API call to screenshotlayer.com and send the image link with the response
 
-    const secret = 
+    function getScreenShotRequestURL() {
+      const secret = screenshotlayer.secret;
+      const key = screenshotlayer.key;
+      const hash = md5(req.body.url+secret);
+      return "http://api.screenshotlayer.com/api/capture?access_key=" + key + "&url=" + req.body.url + "&viewport=1440x900&width=250&secret_key=" + hash;  
+    }
 
     URL.create({"url": req.body.url}, (err, created) => {
       const encodedURL = ShortURL.encode(created.id);
@@ -42,7 +48,7 @@ function postURL (req,res) {
           if(err) {
             res.status(500).json({"error" : "Internal Server Error"});
           } else {
-            res.status(201).json({"shortURL" : updated.encodedURL}).end();
+            res.status(201).json({"shortURL" : updated.encodedURL, "screenshotURL": getScreenShotRequestURL()}).end();
           }
       });
     });

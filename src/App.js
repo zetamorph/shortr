@@ -12,7 +12,8 @@ class App extends Component {
 
     this.state = {
       URL: "",
-      shortURL: ""
+      shortURL: "",
+      screenshotURL: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,8 +25,7 @@ class App extends Component {
     this.setState({URL: urlData});
     let self = this;
     axios.post("http://localhost:9000/new", {url: urlData}).then((response) => {
-      self.setState({shortURL: response.data.shortURL}, function afterURLReceived() {
-
+      self.setState({shortURL: response.data.shortURL, screenshotURL: response.data.screenshotURL}, function afterURLReceived() {
       });
     });
   }
@@ -35,7 +35,7 @@ class App extends Component {
     if(!this.state.shortURL) {
       content = <URLForm onSubmit={this.handleSubmit} />;
     } else {
-      content = <URLView shortURL={this.state.shortURL} url={this.state.URL} />;
+      content = <URLView shortURL={this.state.shortURL} url={this.state.URL} screenshotURL={this.state.screenshotURL} />;
     }
 
     return (

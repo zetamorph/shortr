@@ -6,7 +6,7 @@ class URLView extends Component {
     return (
       <Item.Group divided>
         <Item>
-          <Item.Image size="tiny" src="http://api.screenshotlayer.com/api/capture?access_key=eafbc5afc34f0b425a5509ed426a42b8&url=http://google.com&viewport=1440x900&width=250" />
+          <Item.Image size="tiny" src={this.props.screenshotURL} />
           <Item.Content verticalAlign="middle">{this.props.shortURL}</Item.Content>
         </Item>
       </Item.Group>
