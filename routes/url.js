@@ -25,38 +25,6 @@ function getURL (req,res) {
 }
 
 function postURL (req,res) {
-  if(!req.body.url) {
-    res.status(400).json({"error": "Bad request"});
-  }
-  else {
-
-    //Make an API call to screenshotlayer.com and send the image link with the response
-
-    function getScreenShotURL(url) {
-      const secret = screenshotlayer.secret;
-      const key = screenshotlayer.key;
-      const hash = md5(url+secret);
-      return "http://api.screenshotlayer.com/api/capture?access_key=" + key + "&url=" + url + "&viewport=1440x900&width=250&secret_key=" + hash;  
-    }
-
-    URL.create(req.body, (err, created) => {
-      let encodedURL = ShortURL.encode(created.id);
-      URL.findOneAndUpdate(
-        {_id: created.id}, 
-        {$set: {encodedURL : encodedURL}}, 
-        {new: true},
-        (err, updated) => {
-          if(err) {
-            res.status(500).json({"error" : "Internal Server Error"});
-          } else {
-            res.status(201).json({"url": req.body.url, "shortURL" : updated.encodedURL, "screenshotURL": getScreenShotURL(req.body.url)}).end();
-          }
-      });
-    });
-  }
-}
-
-function postURLBatch (req,res) {
 
   var results = [];
   function respond() {
@@ -71,7 +39,7 @@ function postURLBatch (req,res) {
   }
 
   URL.create(req.body, (err, created) => {
-    var finished = _.after(5, respond);
+    var finished = _.after(req.body.length, respond);
     for(i=0; i<req.body.length; i++) {
       URL.findOneAndUpdate(
         {_id: created[i]._id}, 
@@ -90,4 +58,4 @@ function postURLBatch (req,res) {
   });
 }
 
-module.exports = {getURL, postURL, postURLBatch};
+module.exports = {getURL, postURL};

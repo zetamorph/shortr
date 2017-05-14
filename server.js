@@ -28,9 +28,6 @@ server.get("/", (req,res) => {
 server.route("/new")
   .post(urlRoutes.postURL);
 
-server.route("/batch")
-  .post(urlRoutes.postURLBatch);
-
 server.route("/:encodedURL")
   .get(urlRoutes.getURL);
 
