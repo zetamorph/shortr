@@ -4,21 +4,13 @@ const   express = require("express"),
         path = require("path"),
         bodyParser = require("body-parser"),
         config = require("config"),
+        middleware = require("./middleware.js"),
         urlRoutes = require("./routes/url"),
         db = require("./db");
-
-var allowCrossDomain = function(req, res, next) {
-
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-}
 
 server.use(express.static(path.join(__dirname, "/public")));
 server.set("view engine", "pug");
 server.use(morgan("combined"));
-server.use(allowCrossDomain);
 server.use(bodyParser.json());
 
 server.get("/", (req,res) => {
@@ -26,7 +18,7 @@ server.get("/", (req,res) => {
 });
 
 server.route("/new")
-  .post(urlRoutes.postURL);
+  .post(middleware.sanitizeBody, urlRoutes.postURL);
 
 server.route("/:encodedURL")
   .get(urlRoutes.getURL);

@@ -4,7 +4,7 @@ const   URL = require("../models/url"),
         screenshotlayer = require("./../config/default.json").screenshotlayer,
         _ = require("lodash"),
         axios = require("axios");
-
+        
 function getURL (req,res) {
   let encodedURL = req.params.encodedURL;
   if(!encodedURL) {
