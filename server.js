@@ -8,13 +8,12 @@ const   express = require("express"),
         urlRoutes = require("./routes/url"),
         db = require("./db");
 
-server.use(express.static(path.join(__dirname, "/public")));
-server.set("view engine", "pug");
+server.use(express.static(path.join(__dirname, "/build")));
 server.use(morgan("combined"));
 server.use(bodyParser.json());
 
 server.get("/", (req,res) => {
-  res.render("index");
+  res.render("index.html");
 });
 
 server.route("/new")

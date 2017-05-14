@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/zetamorph/shortr/issues"
   },
-  "homepage": "https://github.com/zetamorph/shortr#readme",
+  "homepage": "https://shortr.loewe.pm",
   "dependencies": {
     "axios": "^0.16.1",
     "body-parser": "^1.17.1",

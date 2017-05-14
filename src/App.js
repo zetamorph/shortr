@@ -37,9 +37,7 @@ class App extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const form = event.target;
     let requestData = [];
-    let requestURL = "/batch";
     let keys = [];
     for(var i=1; i<=10; i++) {
       keys.push("url"+i);
@@ -50,13 +48,7 @@ class App extends Component {
       requestData.push({url: value});
     });
 
-    if(requestData.length === 1) {
-      requestData = requestData[0];
-      requestURL = "/new";
-      
-    }
-
-    axios.post(requestURL, requestData).then((response) => {
+    axios.post("/new", requestData).then((response) => {
       let shortURLs = [];
       let URLs = [];
       console.log(response);
