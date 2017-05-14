@@ -8,8 +8,8 @@ class URLView extends Component {
         <Item>
           <Item.Image size="tiny" src={this.props.screenshotURL} />
           <Item.Content verticalAlign="middle">
-            <Input value="http://shortr.loewe.pm{this.props.shortURL}"></Input>
-            <Button color="teal" icon="copy">Copy</Button>
+            <Input defaultValue={"http://shortr.loewe.pm/" + this.props.shortURL} ></Input>
+            <Button color="teal">Copy</Button>
           </Item.Content>
         </Item>
       </Item.Group>

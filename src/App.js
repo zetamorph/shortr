@@ -4,6 +4,7 @@ import URLForm from './URLForm';
 import URLView from './URLView';
 import {Container, Grid} from 'semantic-ui-react';
 import axios from 'axios';
+import _ from "lodash";
 import './App.css';
 
 class App extends Component {
@@ -13,30 +14,72 @@ class App extends Component {
 
     this.state = {
       urlCount: 1,
-      url: "",
-      shortURL: "",
-      screenshotURL: ""
+      urls: [],
+      shortURLs: []
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.addURL = this.addURL.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  addURL(event) {
+    event.preventDefault();
+    if(this.state.urlCount < 10) {
+      this.setState({urlCount: this.state.urlCount + 1});
+    }
+    else {} // TODO : make button disappear
+  }
+
+  handleInputChange(event) {
+    this.setState({[event.target.name]: event.target.value});
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const urlData = event.target.url.value;
-    this.setState({url: urlData});
-    let self = this;
-    axios.post("/new", {url: urlData}).then((response) => {
-      self.setState({shortURL: response.data.shortURL, screenshotURL: response.data.screenshotURL});
+    const form = event.target;
+    let requestData = [];
+    let requestURL = "/batch";
+    let keys = [];
+    for(var i=1; i<=10; i++) {
+      keys.push("url"+i);
+    }
+    const urls = _.pick(this.state, keys);
+    
+    _.forOwn(urls, (value, key) => {
+      requestData.push({url: value});
+    });
+
+    if(requestData.length === 1) {
+      requestData = requestData[0];
+      requestURL = "/new";
+      
+    }
+
+    axios.post(requestURL, requestData).then((response) => {
+      let shortURLs = [];
+      let URLs = [];
+      console.log(response);
+      for(i=0; i<response.data.length; i++) {
+        shortURLs.push(response.data[i].encodedURL);
+        URLs.push(response.data[i].url);
+      }
+      console.log(shortURLs);
+      this.setState({shortURLs: shortURLs});
+      this.setState({URLs: URLs});
     });
   }
 
   render() {
     let content;
-    if(!this.state.shortURL) {
-      content = <URLForm onSubmit={this.handleSubmit} />;
+    if(this.state.shortURLs.length === 0) {
+      content = <URLForm onSubmit={this.handleSubmit} addURL={this.addURL} urlCount={this.state.urlCount} handleInputChange={this.handleInputChange} />;
     } else {
-      content = <URLView shortURL={this.state.shortURL} url={this.state.url} screenshotURL={this.state.screenshotURL} />;
+      content = [];
+      for(var i=0; i<this.state.shortURLs.length; i++) {
+        content.push(<URLView key={"view" + i} shortURL={this.state.shortURLs[i]}/>);
+      }
+        
     }
 
     return (
@@ -46,7 +89,7 @@ class App extends Component {
           <Grid.Row columns={3}>
             <Grid.Column>
             </Grid.Column>
-            <Grid.Column inverted>
+            <Grid.Column id="content">
               {content}
             </Grid.Column>
             <Grid.Column>
