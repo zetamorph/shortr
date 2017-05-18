@@ -69,7 +69,7 @@ class App extends Component {
     } else {
       content = [];
       for(var i=0; i<this.state.shortURLs.length; i++) {
-        content.push(<URLView key={"view" + i} shortURL={this.state.shortURLs[i]}/>);
+        content.push(<URLView key={"view" + i} shortURL={this.state.shortURLs[i]} url={this.state.urls[i]} />);
       }
         
     }

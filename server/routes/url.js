@@ -1,7 +1,6 @@
 const   URL = require("../models/url"),
-        ShortURL = require("../ShortURL"),
+        ShortURL = require("../utils/shortURL"),
         md5 = require("md5"),
-        screenshotlayer = require("./../config/default.json").screenshotlayer,
         _ = require("lodash"),
         axios = require("axios");
         

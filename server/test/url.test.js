@@ -1,15 +1,13 @@
 process.env.NODE_ENV = "test";
 
 const mongoose = require("mongoose"),
-      URL = require("../models/url");
+      URL = require("../models/url"),
+      server = require("../server"),
       chai = require("chai"),
       chaiHttp = require("chai-http"),
-      server = require("../server"),
       should = chai.should();
 
 chai.use(chaiHttp);
-
-
 
 describe("URLs", () => {
 
@@ -72,8 +70,3 @@ describe("URLs", () => {
   });
 
 });
-
-
-
-
-
