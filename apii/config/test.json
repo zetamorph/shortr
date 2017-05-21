@@ -1,0 +1,6 @@
+{
+  "dbConfig": {
+    "host": "localhost:27017",
+    "name": "shortr_test"
+  }
+}

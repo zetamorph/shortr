@@ -1,0 +1,9 @@
+{
+  "dbConfig": {
+    "host": "localhost:27017",
+    "name": "shortr"
+  },
+  "serverConfig": {
+    "port": "9123"
+  }
+}
