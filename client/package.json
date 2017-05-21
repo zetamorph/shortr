@@ -1,10 +1,9 @@
 {
-  "name": "shortr",
+  "name": "shortr-client",
   "version": "1.0.0",
-  "description": "A basic URL shortening microservice",
-  "main": "server.js",
+  "description": "A React App consuming shortr-api",
+  "main": "src/index.js",
   "scripts": {
-    "server": "nodemon server",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -22,26 +21,12 @@
   "homepage": "https://shortr.loewe.pm",
   "dependencies": {
     "axios": "^0.16.1",
-    "body-parser": "^1.17.1",
-    "config": "^1.26.1",
-    "express": "^4.15.2",
-    "lodash": "^4.17.4",
-    "mongo-sanitize": "^1.0.0",
-    "mongodb": "^2.2.25",
-    "mongoose": "^4.9.1",
-    "mongoose-auto-increment": "^5.0.1",
-    "morgan": "^1.8.1",
-    "nodemon": "^1.11.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "semantic-ui-css": "^2.2.10",
     "semantic-ui-react": "^0.68.3"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-http": "^3.0.0",
-    "mocha": "^3.2.0",
     "react-scripts": "0.9.5"
-  },
-  "proxy": "http://localhost:9000"
+  }
 }

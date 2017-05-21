@@ -1,0 +1,39 @@
+version: "2"
+services:
+
+  api: 
+    build: ./api
+    ports: 
+      - "9123"
+    depends_on:
+      - mongo
+    networks:
+      - all
+    tty: true
+    stdin_open: true
+    environment: 
+      MONGODB_URI: "mongodb://mongo:27017/shortr"
+    volumes:
+      - /c/Users/johannes/Desktop/web/shortr/api:/usr/shortr-api
+    entrypoint: ["pm2-dev", "--no-daemon", "start", "src/server.js"]
+
+  mongo:
+    image: mongo:latest
+    command: mongod --smallfiles
+    ports:
+      - "27017:27017"
+    networks: 
+      - all
+
+  react:
+    build: ./client
+    ports: 
+      - "3000:3000"
+    networks:
+      - all
+    command: ["npm", "start"]
+
+networks: 
+  all:
+
+

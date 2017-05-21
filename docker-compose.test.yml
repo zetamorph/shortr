@@ -1,0 +1,7 @@
+version: "2"
+services:
+
+  api: 
+    entrypoint: ["npm", "test"]
+  react:
+    entrypoint: ["npm", "test"]

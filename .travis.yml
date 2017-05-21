@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "7"
+  - "6"
+services:
+  - mongodb
+install:
+  - npm install
+before_script:
+# The following is recommended by Travis CI to make sure 
+# MongoDB is already responsive when running the scripts
+  - sleep 15
+  - mongo mydb_test --eval 'db.addUser("travis", "test");'
